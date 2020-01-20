@@ -20,8 +20,8 @@ randomDate: function(start, end) {
   
     return `${y}-${m}-${d}`;
   },
-    // Application Constructor
-  //Injects the results of the API call into the DOM
+  // Application Constructor
+ //Injects the results of the API call into the DOM
 buildDOM: function(result) {
   $("#apodTitle").text(result.title);
 
@@ -42,7 +42,7 @@ buildDOM: function(result) {
 getRequest: function() {
   let _this = this;
   let date = this.randomDate(new Date(1995, 5, 16), new Date());
-  let url = "https://api.nasa.gov/planetary/apod?api_key=Ygsqgv5DQvcBlavdrJYcosQRilJVC8pWuMO0vB9g&date=" + date;
+  let url = "https://api.nasa.gov/planetary/apod?api_key=YOUR-DATA-DOT-GOV-API-KEY&date=" + date;
   $.ajax({
       url: url
   }).done(function(result){
@@ -51,16 +51,5 @@ getRequest: function() {
     console.log(result);
   });
 },
-
-// Initialization method.
-init: function() {
-  this.getRequest();
-},
+};
 apod.init();
-
-/* https://learn.jquery.com/using-jquery-core/document-ready/ */
-$(function() {
-    $('#btnRandApod').on('click',function(){
-      apod.getRequest();
-    });
-});

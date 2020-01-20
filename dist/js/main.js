@@ -10619,24 +10619,30 @@ randomDate: function(start, end) {
   
     return `${y}-${m}-${d}`;
   },
-    // Application Constructor
-    init: function() {
-        let date = this.randomDate(new Date(1995, 5, 16), new Date());
+  // Application Constructor
+  init: function() {
+    let date = "2013-06-06";
+    //let date = this.randomDate(new Date(1995, 5, 16), new Date());
+    var url = "https://api.nasa.gov/planetary/apod?api_key=YOUR-DATA-DOT-GOV-API-KEY&date=" + date;
 
-        var url = "https://api.nasa.gov/planetary/apod?api_key=Ygsqgv5DQvcBlavdrJYcosQRilJVC8pWuMO0vB9g&date=" +date;
-
-        $.ajax({
-            url: url
-        }).done(function(result){
-            $("#apodTitle").text(result.title);
-            $("#apodImg").attr("src", result.url).attr('alt', result.title);
-            $("#apodCopyright").text("Copyright: " + result.copyright);
-            $("#apodDate").text("Date: " + date);
-            $("#apodDesc").text(result.explanation);
-        }).fail(function(result){
-          console.log(result);
-        });
-    },
+    //If the media type is video hide the image elements and display a video.
+    if(result.media_type === 'video') {
+      $("#apodImg").hide();
+      $("#apodVideo > iframe").attr("src", result.url).show();
+    }else{
+      $("#apodVideo > iframe").hide();
+      $("#apodImg").attr("src", result.url).attr('alt', result.title).show();
+}
+    $.ajax({
+        url: url
+    }).done(function(result){
+      $("#apodTitle").text(result.title);
+      $("#apodImg").attr("src", result.url).attr('alt', result.title);
+      $("#apodCopyright").text("Copyright: " + result.copyright);
+      $("#apodDate").text("Date: " + date);
+      $("#apodDesc").text(result.explanation);
+    }).fail(function(result){
+    });
+},
 };
-
 apod.init();
